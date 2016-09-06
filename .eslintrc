@@ -1,13 +1,15 @@
 {
+  "parser": "babel-eslint",
   "extends": "airbnb/base",
   "plugins": [
     "react"
   ],
   "env": {
-    "node": true,
+    "es6": true,
     "jasmine": true
   },
   "rules": {
+    "global-require": 0,
     "indent": [1, 2],
     "no-console": 0,
     "no-unused-vars": [1, {"vars": "local", "args": "none"}],
@@ -15,7 +17,7 @@
     "react/jsx-boolean-value": 1,
     "react/jsx-closing-bracket-location": 1,
     "react/jsx-curly-spacing": 1,
-    "react/jsx-indent-props": 1,
+    "react/jsx-indent-props": [2, 2],
     "react/jsx-key": 1,
     "react/jsx-max-props-per-line": 1,
     "react/jsx-no-duplicate-props": 1,

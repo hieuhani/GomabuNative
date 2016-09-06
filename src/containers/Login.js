@@ -1,27 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {
-  AppState,
-  View,
-  Text,
-  StyleSheet,
-} from 'react-native';
+import ScreenLogin from '../components/ScreenLogin';
 
 class Login extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Hello from Gomabu and this is login screen</Text>
-      </View>
+      <ScreenLogin/>
     )
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
 
 function mapStateToProps(state) {
   return {
