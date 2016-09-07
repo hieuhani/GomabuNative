@@ -1,15 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import ScreenLogin from '../components/ScreenLogin';
+import {
+  View,
+  Text,
+} from 'react-native';
 
-class Login extends Component {
+class ActivityLogView extends Component {
   render() {
     return (
-      <ScreenLogin/>
+      <View>
+        <Text>
+          This is MyAccountView
+        </Text>
+      </View>
     );
   }
 }
-
 
 function mapStateToProps(state) {
   return {
@@ -19,4 +25,4 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps, {
 
-})(Login);
+})(ActivityLogView);

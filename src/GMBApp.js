@@ -1,13 +1,19 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import {
   AppState,
   View,
-  Text,
   StyleSheet,
+  StatusBar,
 } from 'react-native';
 import Login from './containers/Login';
+import GMBNavigator from './containers/GMBNavigator';
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
 
 class GMBApp extends Component {
   componentDidMount() {
@@ -23,29 +29,32 @@ class GMBApp extends Component {
   }
 
   render() {
-    if (!this.props.isLoggedIn) {
+    // TODO: Remove ! for testing only
+    if (this.props.isLoggedIn) {
       return <Login />;
     }
 
     return (
       <View style={styles.container}>
-        <Text>Hello from Gomabu</Text>
+        <StatusBar
+          translucent={true}
+          backgroundColor="rgba(0, 0, 0, 0.2)"
+          barStyle="light-content"
+        />
+        <GMBNavigator />
       </View>
-    )
+    );
   }
 }
 
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
+GMBApp.propTypes = {
+  isLoggedIn: PropTypes.bool.isRequired,
+};
 
 function mapStateToProps(state) {
   return {
     isLoggedIn: state.user.isLoggedIn,
-  }
+  };
 }
 
 export default connect(mapStateToProps, {

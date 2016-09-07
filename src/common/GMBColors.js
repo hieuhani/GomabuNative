@@ -1,1 +1,3 @@
-export const mainColor = '#AE2A27';
+export default {
+  mainColor: '#AE2A27',
+};
