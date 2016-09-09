@@ -3,8 +3,10 @@ import { connect } from 'react-redux';
 import {
   Navigator,
   Platform,
+  BackAndroid,
 } from 'react-native';
-import GMBTabView from './tabs/GMBTabView.ios';
+import GMBTabView from './tabs/GMBTabView';
+import switchTab from '../actions/navigation';
 
 const styles = {
   container: {
@@ -14,6 +16,53 @@ const styles = {
 };
 
 class GMBNavigator extends Component {
+  constructor() {
+    super();
+    this.handlers = [];
+  }
+  componentDidMount() {
+    BackAndroid.addEventListener('hardwareBackPress', this.handleBackButton);
+  }
+
+  componentWillUnmount() {
+    BackAndroid.removeEventListener('hardwareBackPress', this.handleBackButton);
+  }
+
+  getChildContext() {
+    return {
+      addBackButtonListener: this.addBackButtonListener,
+      removeBackButtonListener: this.removeBackButtonListener,
+    };
+  }
+
+  addBackButtonListener = (listener) => {
+    this.handlers.push(listener);
+  };
+
+  removeBackButtonListener = (listener) => {
+    this.handlers = this.handlers.filter((handler) => handler !== listener);
+  };
+
+  handleBackButton() {
+    for (let i = this.handlers.length - 1; i >= 0; i--) {
+      if (this.handlers[i]()) {
+        return true;
+      }
+    }
+
+    const { navigator } = this.refs;
+    if (navigator && navigator.getCurrentRoutes().length > 1) {
+      navigator.pop();
+      return true;
+    }
+
+    if (this.props.tab !== 'Home') {
+      this.props.switchTab('Home');
+      return true;
+    }
+    return false;
+  }
+
   renderScene(route, navigator) {
     return <GMBTabView navigator={navigator} />;
   }
@@ -41,6 +90,11 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, {
+GMBNavigator.childContextTypes = {
+  addBackButtonListener: PropTypes.func,
+  removeBackButtonListener: PropTypes.func,
+};
 
+export default connect(mapStateToProps, {
+  switchTab
 })(GMBNavigator);
