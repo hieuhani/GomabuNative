@@ -45,4 +45,7 @@ export const styles = StyleSheet.create({
     fontWeight: '700',
     marginTop: 8,
   },
+  errorMessage: {
+    color: '#BF360C',
+  },
 });

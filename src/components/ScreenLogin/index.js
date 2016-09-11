@@ -1,10 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import {
   View,
   Image,
   StatusBar,
   Animated,
+  Text,
 } from 'react-native';
+
 import { styles } from './styles';
 import ButtonGMB from '../ButtonGMB';
 
@@ -13,10 +15,25 @@ class ScreenLogin extends Component {
     super(props);
     this.state = {
       anim: new Animated.Value(0),
+      isFacebookSigningIn: false,
+      isGoogleSigningIn: false,
     };
     this.handleFacebookSignIn = () => {
+      if (this.state.isFacebookSigningIn) {
+        return;
+      }
+      this.setState({
+        isFacebookSigningIn: true,
+      });
+      this.props.onFacebookSignIn();
     };
     this.handleGoogleSignIn = () => {
+      if (this.state.isGoogleSigningIn) {
+        return;
+      }
+      this.setState({
+        isGoogleSigningIn: true,
+      });
     };
   }
 
@@ -25,6 +42,7 @@ class ScreenLogin extends Component {
   }
 
   render() {
+    const { isFacebookSigningIn, isGoogleSigningIn } = this.state;
     return (
       <Image
         source={require('./images/BackgroundLogin.png')}
@@ -44,18 +62,21 @@ class ScreenLogin extends Component {
           <Animated.View style={[styles.section, styles.sectionLogin, this.fadeIn(700, -20)]}>
             <ButtonGMB
               background={styles.facebook}
-              caption="Sign in with Facebook"
+              caption={!isFacebookSigningIn ? 'Sign in with Facebook' : 'Please wait...'}
               icon={require('./images/LoginFacebookIcon.png')}
               onPress={this.handleFacebookSignIn}
               style={styles.margin}
             />
             <ButtonGMB
               background={styles.google}
-              caption="Sign in with Google"
+              caption={!isGoogleSigningIn ? 'Sign in with Google' : 'Please wait...'}
               icon={require('./images/LoginGoogleIcon.png')}
               onPress={this.handleGoogleSignIn}
               style={styles.margin}
             />
+            {this.props.authErrorReason.length > 0 && <Text style={styles.errorMessage}>
+              {this.props.authErrorReason}
+            </Text>}
           </Animated.View>
         </View>
       </Image>
@@ -80,5 +101,11 @@ class ScreenLogin extends Component {
     };
   }
 }
+
+ScreenLogin.propTypes = {
+  authErrorReason: PropTypes.string,
+  onFacebookSignIn: PropTypes.func.isRequired,
+  onGoogleSignIn: PropTypes.func.isRequired,
+};
 
 export default ScreenLogin;

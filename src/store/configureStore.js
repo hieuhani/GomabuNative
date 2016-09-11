@@ -4,6 +4,9 @@ import createLogger from 'redux-logger';
 import { persistStore, autoRehydrate } from 'redux-persist';
 import { AsyncStorage } from 'react-native';
 import rootReducer from '../reducers';
+import api from '../middleware/api';
+import promise from '../middleware/promise';
+import storage from '../middleware/storage';
 
 const isDebuggingInChrome = __DEV__ && !!window.navigator.userAgent;
 
@@ -14,7 +17,7 @@ const logger = createLogger({
 });
 
 
-const GMBStore = applyMiddleware(thunk, logger)(createStore);
+const GMBStore = applyMiddleware(thunk, promise, api, storage, logger)(createStore);
 
 export default function configureStore(onComplete) {
   const store = autoRehydrate()(GMBStore)(rootReducer);

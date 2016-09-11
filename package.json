@@ -6,10 +6,13 @@
     "start": "node node_modules/react-native/local-cli/cli.js start"
   },
   "dependencies": {
+    "axios": "^0.14.0",
     "lodash": "^4.15.0",
     "react": "15.3.1",
     "react-native": "0.32.0",
+    "react-native-fbsdk": "^0.3.0",
     "react-redux": "^4.4.5",
+    "realm": "^0.14.3",
     "redux": "^3.6.0",
     "redux-logger": "^2.6.1",
     "redux-persist": "^3.5.0",

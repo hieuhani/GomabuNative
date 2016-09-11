@@ -8,6 +8,9 @@ import {
 } from 'react-native';
 import Login from './containers/Login';
 import GMBNavigator from './containers/GMBNavigator';
+import {
+  checkAuthStatus,
+} from './actions/user';
 
 const styles = StyleSheet.create({
   container: {
@@ -26,11 +29,11 @@ class GMBApp extends Component {
 
   handleAppStateChange(appState) {
     console.log(appState);
+    this.props.checkAuthStatus();
   }
 
   render() {
-    // TODO: Remove ! for testing only
-    if (this.props.isLoggedIn) {
+    if (!this.props.isLoggedIn) {
       return <Login />;
     }
 
@@ -48,6 +51,7 @@ class GMBApp extends Component {
 }
 
 GMBApp.propTypes = {
+  checkAuthStatus: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
 };
 
@@ -58,5 +62,5 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {
-
+  checkAuthStatus,
 })(GMBApp);
