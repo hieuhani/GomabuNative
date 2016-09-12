@@ -1,4 +1,4 @@
-package com.gomabunative;
+package com.gomabu.userapp;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
