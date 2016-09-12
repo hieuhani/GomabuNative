@@ -37,6 +37,15 @@ class ScreenLogin extends Component {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.authErrorReason.length > 0) {
+      this.setState({
+        isFacebookSigningIn: false,
+        isGoogleSigningIn: false,
+      });
+    }
+  }
+
   componentDidMount() {
     Animated.timing(this.state.anim, { toValue: 3000, duration: 3000 }).start();
   }

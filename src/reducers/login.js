@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import * as LoginActionTypes from '../actions/login';
+import * as UserActionTypes from '../actions/user';
 
 const initialState = {
   authenticated: false,
@@ -26,6 +27,11 @@ export default function login(state = initialState, action) {
     return _.assign({}, state, {
       authenticated: false,
       authErrorReason: _.get(action, 'payload.reason') || 'Unexpected error. Please try again.',
+    });
+  }
+  case UserActionTypes.CHECK_AUTH_STATUS: {
+    return _.assign({}, state, {
+      authErrorReason: initialState.authErrorReason,
     });
   }
   default:

@@ -27,9 +27,12 @@ class GMBApp extends Component {
     AppState.removeEventListener('change', this.handleAppStateChange);
   }
 
+  componentWillMount() {
+    this.props.checkAuthStatus();
+  }
+
   handleAppStateChange(appState) {
     console.log(appState);
-    this.props.checkAuthStatus();
   }
 
   render() {
@@ -40,9 +43,9 @@ class GMBApp extends Component {
     return (
       <View style={styles.container}>
         <StatusBar
-          translucent={true}
           backgroundColor="rgba(0, 0, 0, 0.2)"
           barStyle="light-content"
+          translucent
         />
         <GMBNavigator />
       </View>
