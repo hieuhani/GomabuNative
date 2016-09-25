@@ -1,18 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {
-  View,
-  Text,
-} from 'react-native';
+import ScreenMyAccount from '../../../components/ScreenMyAccount';
 
 class MyAccountView extends Component {
   render() {
     return (
-      <View>
-        <Text>
-          This is MyAccountView
-        </Text>
-      </View>
+      <ScreenMyAccount/>
     );
   }
 }
